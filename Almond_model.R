@@ -10,7 +10,7 @@
 #' 
 
 aanomaly = function(data, p, p2, t, t2, intercept) {
-  
+  value = (data$min.temp * t) +
   
   return(value)
 }
