@@ -17,4 +17,5 @@ aanomaly = function(data, p, p2, t, t2, intercept) {
 
 
 # Testing
-aanomaly(data = )
+data = read.csv()
+aanomaly(data = data, )
