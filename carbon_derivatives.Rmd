@@ -1,0 +1,36 @@
+---
+title: "inclass_harvet"
+author: "Shale"
+date: "5/12/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(here)
+library(ggplot2)
+library(dplyr)
+library(purrr)
+
+
+source(here("dh_fixed.R"))
+```
+
+# The Title
+
+```{r}
+# given some forest characteristics - lets look at derivatives under different harvest rates
+Hrate = 10
+gps = list(harv=Hrate, K=1000, r=0.05)
+
+# look at the derivative over a range of forest sizes
+
+findstable = data.frame(Ccurr=seq(from=250, to=750, by=5))
+# notice use of Time=NULL, and map to compute derivative
+# for different values of forest biomass
+findstable$dervHlow= unlist(findstable$Ccurr %>% map(~dh_fixed(parms=gps, Time=NULL, P=.x) ))
+                                                  
+ggplot(findstable, aes(Ccurr, dervHlow))+geom_point()+geom_hline(yintercept = 0, col="red")+
+  labs(y="Derivative\n (Rate of change of forest carbon) (kg/C/year)", x="Current Forest Carbon Stock (kgC)")
+```
+
